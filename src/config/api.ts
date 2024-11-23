@@ -10,11 +10,13 @@ export const API_ENDPOINTS = {
     GET_MY_EXHIBITS: '/exhibits/my-posts',
     GET_EXHIBIT: (id: number) => `/exhibits/post/${id}`,
     CREATE_EXHIBIT: '/exhibits',
+    UPDATE_EXHIBIT: (id: number) => `/exhibits/${id}`,
     DELETE_EXHIBIT: (id: number) => `/exhibits/${id}`,
     GET_STATIC_FILE: (filename: string) => `/exhibits/static/${filename}`,
 
     // Comment endpoints
     CREATE_COMMENT: (exhibitId: number) => `/exhibits/${exhibitId}/comments`,
     GET_COMMENTS: (exhibitId: number) => `/exhibits/${exhibitId}/comments`,
+    UPDATE_COMMENT: (exhibitId: number, commentId: number) => `/exhibits/${exhibitId}/comments/${commentId}`,
     DELETE_COMMENT: (exhibitId: number, commentId: number) => `/exhibits/${exhibitId}/comments/${commentId}`,
 };

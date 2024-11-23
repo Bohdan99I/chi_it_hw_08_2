@@ -40,14 +40,11 @@ export const exhibitActions = {
 
   createPost: async (formData: FormData): Promise<IPost> => {
     try {
-      console.log('Token before create post:', localStorage.getItem('token')); 
-      console.log('Headers:', authAxiosInstance.defaults.headers); 
       const response = await authAxiosInstance.post(API_ENDPOINTS.CREATE_EXHIBIT, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-      console.log('Create post response:', response.data); 
       return response.data;
     } catch (error) {
       console.error('Error in createPost:', error);
@@ -57,7 +54,7 @@ export const exhibitActions = {
 
   updatePost: async (id: number, data: Partial<IPost>): Promise<IPost> => {
     try {
-      const response = await authAxiosInstance.put(`/api/exhibits/${id}`, data);
+      const response = await authAxiosInstance.put(API_ENDPOINTS.UPDATE_EXHIBIT(id), data);
       return response.data;
     } catch (error) {
       console.error('Error in updatePost:', error);
@@ -75,16 +72,12 @@ export const exhibitActions = {
   },
 
   addComment: async (postId: number, content: string) => {
-    console.log('Adding comment:', { postId, content });
     const response = await authAxiosInstance.post(API_ENDPOINTS.CREATE_COMMENT(postId), { text: content });
-    console.log('Comment response:', response.data);
     return response.data;
   },
 
   getComments: async (postId: number) => {
-    console.log('Getting comments for post:', postId);
     const response = await axiosInstance.get(API_ENDPOINTS.GET_COMMENTS(postId));
-    console.log('Comments response:', response.data);
     return response.data;
   },
 
@@ -93,9 +86,7 @@ export const exhibitActions = {
   },
 
   updateComment: async (postId: number, commentId: number, content: string) => {
-    const response = await authAxiosInstance.put(`/api/exhibits/${postId}/comments/${commentId}`, {
-      content
-    });
+    const response = await authAxiosInstance.put(API_ENDPOINTS.UPDATE_COMMENT(postId, commentId), { text: content });
     return response.data;
   }
 };
