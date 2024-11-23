@@ -5,7 +5,6 @@ import {
   CardActions, 
   CardMedia, 
   Typography, 
-  Button, 
   Box,
   IconButton,
   Skeleton,
@@ -15,8 +14,8 @@ import {
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { IPost } from '../../types';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
+
+
 import CommentIcon from '@mui/icons-material/Comment';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import Edit from '@mui/icons-material/Edit';

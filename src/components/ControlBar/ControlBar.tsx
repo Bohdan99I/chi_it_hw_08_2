@@ -17,14 +17,14 @@ export const ControlBar: React.FC = () => {
 
   return (
     <AppBar position="static">
-      <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Blog App
+      <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Button color="inherit" onClick={() => navigate('/')}>
+          All Posts
+        </Button>
+        <Typography variant="h6" component="div" sx={{ textAlign: 'center', flexGrow: 1 }}>
+          {user ? `Hello ${user.username} !!!` : 'Blog App'}
         </Typography>
         <Box>
-          <Button color="inherit" onClick={() => navigate('/')}>
-            All Posts
-          </Button>
           {user ? (
             <>
               <Button color="inherit" onClick={() => navigate('/my-posts')}>
