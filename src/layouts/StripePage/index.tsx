@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Container, Typography, CircularProgress, Box } from '@mui/material';
 import { Post } from '../../components/Post/Post';
 import { Pagination } from '../../components/Pagination/Pagination';
@@ -12,7 +12,7 @@ export const StripePage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchPosts = async () => {
+  const fetchPosts = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -26,11 +26,11 @@ export const StripePage: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [page]);
 
   useEffect(() => {
     fetchPosts();
-  }, [page]);
+  }, [fetchPosts]);
 
   const handleDeletePost = async (postId: number) => {
     try {
@@ -44,10 +44,6 @@ export const StripePage: React.FC = () => {
 
   return (
     <Container maxWidth="md" sx={{ mt: 4 }}>
-      <Typography variant="h4" component="h1" gutterBottom>
-        All Posts
-      </Typography>
-
       {loading ? (
         <Box display="flex" justifyContent="center" my={4}>
           <CircularProgress />
