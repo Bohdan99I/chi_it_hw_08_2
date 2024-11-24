@@ -1,6 +1,5 @@
 import { IPost } from '../types';
 import axiosInstance from './axiosInstance';
-import authAxiosInstance from './authAxiosInstance';
 import { API_ENDPOINTS } from '../config/api';
 
 export const exhibitActions = {
@@ -18,7 +17,7 @@ export const exhibitActions = {
 
   getMyPosts: async (page: number = 1, limit: number = 10): Promise<{ posts: IPost[], total: number }> => {
     try {
-      const response = await authAxiosInstance.get(`${API_ENDPOINTS.GET_MY_EXHIBITS}?page=${page}&limit=${limit}`);
+      const response = await axiosInstance.get(`${API_ENDPOINTS.GET_MY_EXHIBITS}?page=${page}&limit=${limit}`);
       const posts = response.data.data || [];
       const total = response.data.total || posts.length;
       return { posts, total };
@@ -40,7 +39,7 @@ export const exhibitActions = {
 
   createPost: async (formData: FormData): Promise<IPost> => {
     try {
-      const response = await authAxiosInstance.post(API_ENDPOINTS.CREATE_EXHIBIT, formData, {
+      const response = await axiosInstance.post(API_ENDPOINTS.CREATE_EXHIBIT, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -54,7 +53,7 @@ export const exhibitActions = {
 
   updatePost: async (id: number, data: Partial<IPost>): Promise<IPost> => {
     try {
-      const response = await authAxiosInstance.put(API_ENDPOINTS.UPDATE_EXHIBIT(id), data);
+      const response = await axiosInstance.put(API_ENDPOINTS.UPDATE_EXHIBIT(id), data);
       return response.data;
     } catch (error) {
       console.error('Error in updatePost:', error);
@@ -64,7 +63,7 @@ export const exhibitActions = {
 
   deletePost: async (id: number): Promise<void> => {
     try {
-      await authAxiosInstance.delete(API_ENDPOINTS.DELETE_EXHIBIT(id));
+      await axiosInstance.delete(API_ENDPOINTS.DELETE_EXHIBIT(id));
     } catch (error) {
       console.error('Error in deletePost:', error);
       throw error;
@@ -72,7 +71,7 @@ export const exhibitActions = {
   },
 
   addComment: async (postId: number, content: string) => {
-    const response = await authAxiosInstance.post(API_ENDPOINTS.CREATE_COMMENT(postId), { text: content });
+    const response = await axiosInstance.post(API_ENDPOINTS.CREATE_COMMENT(postId), { text: content });
     return response.data;
   },
 
@@ -82,11 +81,11 @@ export const exhibitActions = {
   },
 
   deleteComment: async (postId: number, commentId: number) => {
-    await authAxiosInstance.delete(API_ENDPOINTS.DELETE_COMMENT(postId, commentId));
+    await axiosInstance.delete(API_ENDPOINTS.DELETE_COMMENT(postId, commentId));
   },
 
   updateComment: async (postId: number, commentId: number, content: string) => {
-    const response = await authAxiosInstance.put(API_ENDPOINTS.UPDATE_COMMENT(postId, commentId), { text: content });
+    const response = await axiosInstance.put(API_ENDPOINTS.UPDATE_COMMENT(postId, commentId), { text: content });
     return response.data;
   }
 };

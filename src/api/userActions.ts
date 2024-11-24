@@ -1,5 +1,4 @@
 import axiosInstance from './axiosInstance';
-import authAxiosInstance from './authAxiosInstance';
 import { LoginCredentials, RegisterCredentials, IUser } from '../types';
 import { API_ENDPOINTS } from '../config/api';
 
@@ -13,9 +12,9 @@ export const userActions = {
         keys: Object.keys(response.data),
         fullData: response.data
       });
-      
+
       const { access_token, refresh_token, userName, userId } = response.data;
-      
+
       if (!access_token) {
         throw new Error('No access token in response');
       }
@@ -25,17 +24,16 @@ export const userActions = {
       localStorage.setItem('refresh_token', refresh_token);
       localStorage.setItem('userId', userId);
       localStorage.setItem('userName', userName);
-      
-      // Налаштовуємо заголовки для обох axios інстансів
+
+      // Налаштовуємо заголовки для axios інстансу
       axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
-      authAxiosInstance.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
-      
+
       // Повертаємо об'єкт користувача
       return {
         id: userId,
         username: userName
       };
-      
+
     } catch (error) {
       console.error('Login error:', error);
       throw error;
@@ -46,13 +44,12 @@ export const userActions = {
     try {
       const response = await axiosInstance.post(API_ENDPOINTS.REGISTER, credentials);
       const { token, user } = response.data;
-      
+
       if (token) {
         localStorage.setItem('token', token);
         axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        authAxiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       }
-      
+
       return user;
     } catch (error) {
       console.error('Register error:', error);
@@ -66,7 +63,6 @@ export const userActions = {
       localStorage.removeItem('userId');
       localStorage.removeItem('userName');
       delete axiosInstance.defaults.headers.common['Authorization'];
-      delete authAxiosInstance.defaults.headers.common['Authorization'];
     } catch (error) {
       console.error('Logout error:', error);
     }

@@ -31,8 +31,7 @@ export const RegisterForm: React.FC = () => {
   const navigate = useNavigate();
   const { error, loading } = useSelector((state: RootState) => state.user);
 
-  useEffect(() => {
-    // Clear any previous errors when component mounts
+  useEffect(() => {   
     dispatch(clearError());
     return () => {
       dispatch(clearError());

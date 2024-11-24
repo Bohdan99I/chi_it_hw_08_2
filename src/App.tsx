@@ -15,8 +15,7 @@ import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
 const App: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-  useEffect(() => {
-    // Check for token on load
+  useEffect(() => {    
     const token = localStorage.getItem('token');
     if (token) {
       dispatch(getCurrentUser());

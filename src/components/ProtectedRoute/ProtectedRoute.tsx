@@ -16,7 +16,6 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   }
 
   if (!user) {
-    // Redirect to login page, but save the current location
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 

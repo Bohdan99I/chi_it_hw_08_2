@@ -14,8 +14,6 @@ import {
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { IPost } from '../../types';
-
-
 import CommentIcon from '@mui/icons-material/Comment';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import Edit from '@mui/icons-material/Edit';
